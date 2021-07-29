@@ -8,7 +8,9 @@
 :focus {
   outline: none;
 }
-
+body {
+  background: rgb(11, 20, 39);
+}
 /* ==-====-===-==== */
 
 .container {
