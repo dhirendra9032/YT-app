@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="youtube_Search.css">
+   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Youtube</title>
+</head>
+<body>
+    <div class="container">
+        <div class="box">
+            <div class="search-bar">
+              
+                    <input type="text" placeholder="Search" id="quiry">
+                    <button onclick="getVideos()"><i class="fa fa-search"></i></button>
+               
+            </div>
+        </div>
+        <div class="grid_box" id="div_cont">
+          
+        </div>
+      
+
+    </div>
+</body>
+</html>
+
+<script>
+
+    async function getVideos(){
+        let div_cont=document.getElementById('div_cont');
+        let q = document.getElementById('quiry').value;
+
+                let res = await fetch(`https://youtube.googleapis.com/youtube/v3/search?q=${q}&key=AIzaSyCG5Pc8rm2h1MPiIXQ9ALJ5WZZMRDCXDVc`);
+
+                let data = await res.json();
+                console.log(data);
+
+                let { items }=data;
+
+                items.forEach(({id:{videoId}})=>{
+                    let div=document.createElement('div');
+
+                    div.innerHTML=`<iframe  src="https://www.youtube.com/embed/${videoId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+                    
+                     div_cont.append(div);
+                    
+
+                });
+
+               
+            }
+          
+  
+</script>
