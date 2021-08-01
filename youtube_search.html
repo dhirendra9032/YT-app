@@ -30,11 +30,34 @@
 
 <script>
 
+      let div_cont = document.getElementById('div_cont');
+
+
+    async function defaultVideos(){
+        let res=await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyAukjXbwkv_Vo8LRla9rJpCFee212iuQ9E&type=video&q=top  videos on youtube`);
+        
+        let data=await res.json();
+         let { items } = data;
+
+        items.forEach(({ id: { videoId } }) => {
+             let div = document.createElement('div');
+
+             div.innerHTML = `<iframe  src="https://www.youtube.com/embed/${videoId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+
+             div_cont.append(div);
+
+
+         });
+
+    }
+       defaultVideos();
+
     async function getVideos(){
-        let div_cont=document.getElementById('div_cont');
+      
+        div_cont.innerHTML=null;
         let q = document.getElementById('quiry').value;
 
-                let res = await fetch(`https://youtube.googleapis.com/youtube/v3/search?q=${q}&key=AIzaSyCG5Pc8rm2h1MPiIXQ9ALJ5WZZMRDCXDVc`);
+                let res = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&key=AIzaSyAukjXbwkv_Vo8LRla9rJpCFee212iuQ9E&type=video&q=${q}`);
 
                 let data = await res.json();
                 console.log(data);
